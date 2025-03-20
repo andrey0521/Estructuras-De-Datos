@@ -7,6 +7,13 @@ int main(void){
 	Nodo* arbol2=NULL;
 	int dato=0;
 	int opc=0;
+	agregarNodo(&arbol1,crearNodo(1));
+	agregarNodo(&arbol2,crearNodo(0));
+	agregarNodo(&arbol1,crearNodo(0));
+	agregarNodo(&arbol2,crearNodo(1));
+	//agregarNodo(&arbol1,crearNodo(10));
+	//agregarNodo(&arbol2,crearNodo(5));
+
 	do{
 		printf("       Menu\n");
 		printf("[1] Insertar en Árbol 1\n");
@@ -32,13 +39,15 @@ int main(void){
 				comprarArboles(arbol1,arbol2);
 				break;
 			case 6:
-				int p1= profundidad(arbol1,0);
+				int p1= profundidad(arbol1);
 				if(p1!=0){
 					printf("La profundida del arbol 1 es:%d",p1);
 				}
 				break;
 			case 8:
 				imprimirArbol(arbol1,0);
+				printf("\n\n");
+				imprimirArbol(arbol2,0);
 				break;
 			case 9:
 				printf("Fin del programa...\n");
@@ -48,4 +57,6 @@ int main(void){
 				break;
 		}
 	}while(opc!=9);
+	
+	return 0;
 }

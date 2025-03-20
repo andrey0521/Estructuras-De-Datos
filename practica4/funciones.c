@@ -58,37 +58,52 @@ void imprimirArbol(Nodo* raiz, int nivel){
 }
 
 void comprarArboles(Nodo* arbol1,Nodo* arbol2){
-	int valor1=datosIguales(arbol1,0);
-	int valor2=datosIguales(arbol2,0);
-	if(valor1==valor2){
+	if(estructuraIgual(arbol1,arbol2)==1){
 		printf("La estructura es igual");
 	}
+	orden(arbol1,arbol2);
 }
 
-int datosIguales(Nodo* raiz1, int valor){
-	if(raiz1==NULL){
-		return valor;
+void orden(Nodo* raiz1, Nodo* raiz2){
+	if (raiz1==NULL && raiz2==NULL)
+		return;
+		
+	if (raiz1!=NULL){
+		orden(raiz1->izq,NULL);
+		printf("1 %d\n",raiz1->dato);
+		if(raiz2!=NULL){
+			orden(NULL,raiz2->izq);
+			printf("2 %d\n",raiz2->dato);
+			orden(NULL,raiz2->der);
+		}
+		orden(raiz1->der,NULL);
+	}else if(raiz2!=NULL){
+		printf("2 %d\n",raiz2->dato);
+		orden(NULL,raiz2->der);
 	}
-	datosIguales(raiz1->izq,(valor+2)/2);;
 }
 
-int profundidad(Nodo* raiz,int valor){
-	if(raiz==NULL){
-		printf("%d\n",valor);
-		return valor;
-	}
-	int p1=0;
-	
-	if(p1>valor){
-		p1=profundidad(raiz->izq,p1);
-	}else{
-		p1=profundidad(raiz->izq,valor++);
-	}
-	printf("p1=%d\n",p1);
-	if(p1>valor){
-		p1=profundidad(raiz->der,p1);
-	}else{
-		p1=profundidad(raiz->der,valor++);
-	}
-	p1=0;
+int estructuraIgual(Nodo* raiz1,Nodo* raiz2){
+	if (raiz1==NULL && raiz2==NULL)
+		return 1;
+	if(raiz1==NULL || raiz2==NULL)
+		return 0;
+		
+	int subAIzq=estructuraIgual(raiz1->izq,raiz2->izq);
+	int subADer=estructuraIgual(raiz1->der,raiz2->der);
+	return subAIzq && subADer;
+}
+
+int profundidad(Nodo* raiz) {
+    if (raiz == NULL)
+        return 0;
+
+    int subAIzq = profundidad(raiz->izq);
+    int subADer = profundidad(raiz->der);
+
+    if (subAIzq > subADer) 
+        return subAIzq + 1;
+    else 
+        return subADer + 1;
+    
 }
